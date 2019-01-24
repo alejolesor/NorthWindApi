@@ -9,4 +9,8 @@
     <PackageReference Include="Dapper.Contrib" Version="1.50.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Northwind.Repositories\Northwind.Repositories.csproj" />
+  </ItemGroup>
+
 </Project>
