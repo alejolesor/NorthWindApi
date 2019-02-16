@@ -29,9 +29,9 @@ namespace NorthWin.WebAPI.Authentication
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             var identity = new ClaimsIdentity(new List<Claim>() {
-                new Claim(ClaimTypes.Name,$"{user.Firstname} {user.LastName}"),
-                new Claim(ClaimTypes.Role,user.Roles),
-                new Claim(ClaimTypes.PrimarySid,user.Id.ToString()),
+                    new Claim(ClaimTypes.Name,$"{user.Firstname} {user.LastName}"),
+                    new Claim(ClaimTypes.Role,user.Roles),
+                    new Claim(ClaimTypes.PrimarySid,user.Id.ToString()),
 
              }, "Custom");
 
