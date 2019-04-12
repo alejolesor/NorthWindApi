@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NorthWin.WebAPI.Authentication;
+using NorthWin.WebAPI.GlobalErrorHandling;
 using Northwind.DataAccess;
 using Northwind.UnitOfWork;
 
@@ -59,6 +60,7 @@ namespace NorthWin.WebAPI
                 app.UseDeveloperExceptionPage();
             }
             app.UseAuthentication();
+            app.ConfigureExceptionHandler();
             app.UseMvc();
         }
     }

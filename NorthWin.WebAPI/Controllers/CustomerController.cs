@@ -24,6 +24,7 @@ namespace NorthWin.WebAPI.Controllers
         [Route("GetPaginatedCustomer/{page:int}/{rows:int}")]
         public IActionResult GetPaginatedCustomer(int page, int rows)
         {
+            //throw new System.Exception("Northwind Error");
             return Ok(_unitOfWork.Customer.CustomerPagedList(page, rows));
         }
         [HttpPost]
