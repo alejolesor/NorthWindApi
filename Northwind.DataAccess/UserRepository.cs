@@ -13,6 +13,7 @@ namespace Northwind.DataAccess
 
         public User ValidateUser(string email, string password)
         {
+
             var parameters = new DynamicParameters();
             parameters.Add("@email", email);
             parameters.Add("@password", password);
