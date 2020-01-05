@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Models;
 using Northwind.UnitOfWork;
@@ -6,6 +7,7 @@ using Northwind.UnitOfWork;
 namespace NorthWin.WebAPI.Controllers
 {
     [Route("api/Customer")]
+    [EnableCors("AllowAllHeaders")]
     [Authorize]
     public class CustomerController : Controller
     {
@@ -30,8 +32,9 @@ namespace NorthWin.WebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Customer customer)
         {
-            if (ModelState.IsValid) return BadRequest();
-            return Ok(_unitOfWork.Customer.insert(customer));
+            if (!ModelState.IsValid) return BadRequest();
+            _unitOfWork.Customer.insert(customer);
+            return Ok(Json(new { Ok = "correcto", statusCode = "1" }));
 
         }
         [HttpPut]

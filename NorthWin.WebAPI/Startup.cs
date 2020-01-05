@@ -30,10 +30,22 @@ namespace NorthWin.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod();
+                      });
+            });
+
             services.AddSingleton<IUnitOfWork>(option => new NorthwindUnitOfWork(
                 Configuration.GetConnectionString("Northwind")
                 ));
-            var tokenProvider = new JwtProvider("issuer", "audience", "nortwind_2000");
+
+            var tokenProvider = new JwtProvider("issuer", "audience", "nortwind_20001");
             services.AddSingleton<ITokenProvider>(tokenProvider);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -55,6 +67,7 @@ namespace NorthWin.WebAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowAllHeaders");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

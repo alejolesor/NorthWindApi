@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using NorthWin.WebAPI.Authentication;
 using Northwind.Models;
 using Northwind.UnitOfWork;
@@ -7,6 +8,7 @@ using System;
 namespace NorthWin.WebAPI.Controllers
 {
     [Route("api/Token")]
+    [EnableCors("AllowAllHeaders")]
     public class TokenControllerController : Controller
     {
         private ITokenProvider _tokenProvider;
@@ -25,6 +27,7 @@ namespace NorthWin.WebAPI.Controllers
             {
                 throw new UnauthorizedAccessException();
             }
+
             var token = new JsonWebToken
             {
                 Acces_Token = _tokenProvider.CreateToken(user, DateTime.UtcNow.AddHours(8)),
